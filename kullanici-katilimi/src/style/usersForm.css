@@ -1,0 +1,66 @@
+@font-face {
+    font-family:barlow ;
+    src: url('./../fonts/Barlow-Regular.ttf');
+}
+.user-form {
+    display: flex;
+    border:2px solid transparent;
+    border-top-color: whitesmoke;
+    border-left-color: whitesmoke;
+    background-color: #000000cc;
+    padding: 30px;
+    box-shadow: 0 0 5px darkorange;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    cursor : pointer;
+}
+.user-form:hover {
+    transition: all 0.5s ease;
+    transform: scale(1.1);
+}
+.user-form form {
+    min-width: 300px;
+}
+.user-form form div {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+}
+form label {
+    color: whitesmoke;
+    font-family: barlow;
+    font-size: 1rem;
+    font-weight: 600;
+
+}
+form input{
+    padding: 2px;
+    margin-left: 10px;
+    border:none;
+    background-color: #000;
+    border-bottom: 2px solid darkorange;
+    color: whitesmoke;
+
+
+}
+form input:focus{
+    outline: none;
+}
+
+form .buttons button {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: darkorange;
+    color: whitesmoke;
+    padding: 3px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+form .buttons button:hover{
+    transition: all 0.5s ease;
+    background-color: whitesmoke;
+    color: darkorange;
+}

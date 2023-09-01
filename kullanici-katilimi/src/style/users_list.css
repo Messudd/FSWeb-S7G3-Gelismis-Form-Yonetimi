@@ -1,0 +1,46 @@
+.users-table{
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x:hidden;
+}
+
+table {
+    box-shadow: 0 0 10px darkorange;
+}
+
+
+table,th,td{
+    border:1px solid darkorange;
+    color: whitesmoke;
+    border-collapse: collapse;
+    padding: 15px;
+}
+table td {
+    background-color:#1b1b1b ;
+}
+table th {
+    background-color:darkorange;
+    color: whitesmoke;
+    font-weight: bold;
+}
+table tr{
+    cursor:default;
+}
+ table td:hover {
+    transition: all 0.4s ease;
+    background-color: #000;
+ }
+ .nav-link {
+    text-decoration: none;
+ }
+
+ table tbody tr .detail:hover{
+    transition: all 0.4s ease;
+    background-color: whitesmoke;
+    color:#1b1b1b;
+    border:1px solid transparent;
+    letter-spacing: 1.2px;
+    cursor:pointer;
+    font-weight: 600;
+    overflow: hidden;
+ }
