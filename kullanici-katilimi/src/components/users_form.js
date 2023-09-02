@@ -11,8 +11,8 @@ const UsersForm = (props) => {
   const [formErrors, setFormErrors] = useState(form_erors);
   
   const formSchema = Yup.object().shape({
-    name: Yup.string().required('isim gerekli !').min(3,'en az 3 karakter olamalı !'),
-    surname: Yup.string().required('soyad gerekli !'),
+    name: Yup.string().required('isim gerekli !').min(3,'en az 3 karakter olmalı !'),
+    surname: Yup.string().required('soyad gerekli !').min(2,'en az 2 karakter olmalı !'),
     email: Yup.string().email('@admin.com formatında olmalı !').required('E-posta adresi gerekli !'),
     password: Yup.string().required('sifre - gerekli !').min(10,'en az 10 karakter !'),
     terms:Yup.boolean().oneOf([true],'Kabul ediniz !')
@@ -71,7 +71,7 @@ const UsersForm = (props) => {
             value={userData.name}
             onChange={handleFormChange}
           />
-          {(!!formErrors.name) && <span style={{color:'red',fontSize:'12px'}}>{formErrors.name}</span>} 
+          {(!!formErrors.name) && <span data-cy = 'cy-name' style={{color:'red',fontSize:'12px'}}>{formErrors.name}</span>} 
         </div>
         <div className="surname">
           <label htmlFor="surname">Surname :</label>
@@ -82,7 +82,7 @@ const UsersForm = (props) => {
             value={userData.surname}
             onChange={handleFormChange}
           />
-          {(!!formErrors.surname) && <span style={{color:'red',fontSize:'12px'}}>{formErrors.surname}</span>} 
+          {(!!formErrors.surname) && <span  data-cy = 'cy-surname' style={{color:'red',fontSize:'12px'}}>{formErrors.surname}</span>} 
         </div>
         <div className="email">
           <label htmlFor="email">Email :</label>
@@ -93,7 +93,7 @@ const UsersForm = (props) => {
             value={userData.email}
             onChange={handleFormChange}
           />
-          {(!!formErrors.email) && <span style={{color:'red',fontSize:'12px'}}>{formErrors.email}</span>} 
+          {(!!formErrors.email) && <span data-cy = 'cy-email' style={{color:'red',fontSize:'12px'}}>{formErrors.email}</span>} 
         </div>
         <div className="password">
           <label htmlFor="password">Password :</label>
@@ -104,7 +104,7 @@ const UsersForm = (props) => {
             value={userData.password}
             onChange={handleFormChange}
           />
-         {(!!formErrors.password) && <span style={{color:'red',fontSize:'12px'}}>{formErrors.password}</span>} 
+         {(!!formErrors.password) && <span data-cy = 'cy-password' style={{color:'red',fontSize:'12px'}}>{formErrors.password}</span>} 
         </div>
         <div
           style={{
@@ -123,11 +123,11 @@ const UsersForm = (props) => {
             checked = {userData.terms}
             onChange={handleFormChange}
           />
-          {(!!formErrors.terms) && <span style={{color:'red',fontSize:'12px'}}>{formErrors.terms}</span>} 
+          {(!!formErrors.terms) && <span data-cy = 'cy-terms' style={{color:'red',fontSize:'12px'}}>{formErrors.terms}</span>} 
         </div>
         <div className="buttons">
           {
-            isDisable ?  <button disabled = {!isFormValid} type="submit">ADD</button> : <button type="button" onClick={()=> updateMethod(userData)}>UPDATE</button>
+            isDisable ?  <button data-cy = 'cy-submit' disabled = {!isFormValid} type="submit">ADD</button> : <button type="button" onClick={()=> updateMethod(userData)}>UPDATE</button>
           }
         </div>
       </form>
