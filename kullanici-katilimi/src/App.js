@@ -11,7 +11,7 @@ const userInitial = {
   surname: "",
   email: "",
   password: "",
-  terms: "",
+  terms: false,
 };
 
 export const usersActions = Object.freeze({
@@ -131,14 +131,15 @@ function App() {
                   updateMethod={updateMethod}
                 />
               </div>
-              <div className="right-side">
-                {
-                  (usersList.length>0) &&   <UsersList
+              {
+                (usersList.length>0) && (<div className="right-side">
+                  <UsersList
                   usersList={usersList}
                   setPreviewData={setPreviewData}
                 />
-                }
-              </div>
+              </div>)
+              }
+              
             </section>
           </main>
         </Route>

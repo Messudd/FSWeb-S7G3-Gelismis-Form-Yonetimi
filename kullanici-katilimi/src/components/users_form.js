@@ -1,16 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { usersActions } from "../App";
+import * as Yup from 'yup';
 import "./../style/usersForm.css";
 
 const UsersForm = (props) => {
   const { userData, setUserData, usersDispatch, usersList , isDisable,updateMethod} = props;
+  const form_erors = {name: '',surname:'',email: '',password: '', terms: false};
+  const [isFormValid , setFormValid] = useState(false);
+  const [formErrors, setFormErrors] = useState(form_erors);
+  
+  const formSchema = Yup.object().shape({
+    name: Yup.string().required('isim gerekli !').min(3,'en az 3 karakter olamalı !'),
+    surname: Yup.string().required('soyad gerekli !'),
+    email: Yup.string().email('@admin.com formatında olmalı !').required('E-posta adresi gerekli !'),
+    password: Yup.string().required('sifre - gerekli !').min(10,'en az 10 karakter !'),
+    terms:Yup.boolean().oneOf([true],'Kabul ediniz !')
+  });
 
   const handleFormChange = (e) => {
     const { name, type, value, checked } = e.target;
-    setUserData({ ...userData, [name]: type === "checkbox" ? checked : value });
-  };
+    const control = (type === "checkbox" ? checked : value);
+    setUserData({ ...userData, [name]: control});
+    Yup.reach(formSchema,name)
+    .validate(control)
+    .then((valid) => {
+      setFormErrors({...formErrors, [name]: ''});
+    })
+    .catch((err) => {
+      setFormErrors({...formErrors, [name] : err.errors[0]});
+    })
 
+  };
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     await axios
@@ -29,6 +50,9 @@ const UsersForm = (props) => {
 
   useEffect(() => {
     console.log("user-data : ", userData);
+    formSchema
+    .isValid(userData)
+    .then((valid) => setFormValid(valid));
   }, [userData]);
 
   useEffect(() => {
@@ -47,6 +71,7 @@ const UsersForm = (props) => {
             value={userData.name}
             onChange={handleFormChange}
           />
+          {(!!formErrors.name) && <span style={{color:'red',fontSize:'12px'}}>{formErrors.name}</span>} 
         </div>
         <div className="surname">
           <label htmlFor="surname">Surname :</label>
@@ -57,6 +82,7 @@ const UsersForm = (props) => {
             value={userData.surname}
             onChange={handleFormChange}
           />
+          {(!!formErrors.surname) && <span style={{color:'red',fontSize:'12px'}}>{formErrors.surname}</span>} 
         </div>
         <div className="email">
           <label htmlFor="email">Email :</label>
@@ -67,6 +93,7 @@ const UsersForm = (props) => {
             value={userData.email}
             onChange={handleFormChange}
           />
+          {(!!formErrors.email) && <span style={{color:'red',fontSize:'12px'}}>{formErrors.email}</span>} 
         </div>
         <div className="password">
           <label htmlFor="password">Password :</label>
@@ -77,6 +104,7 @@ const UsersForm = (props) => {
             value={userData.password}
             onChange={handleFormChange}
           />
+         {(!!formErrors.password) && <span style={{color:'red',fontSize:'12px'}}>{formErrors.password}</span>} 
         </div>
         <div
           style={{
@@ -95,10 +123,11 @@ const UsersForm = (props) => {
             checked = {userData.terms}
             onChange={handleFormChange}
           />
+          {(!!formErrors.terms) && <span style={{color:'red',fontSize:'12px'}}>{formErrors.terms}</span>} 
         </div>
         <div className="buttons">
           {
-            isDisable ?  <button type="submit">ADD</button> : <button type="submit" onClick={()=> updateMethod(userData)}>UPDATE</button>
+            isDisable ?  <button disabled = {!isFormValid} type="submit">ADD</button> : <button type="button" onClick={()=> updateMethod(userData)}>UPDATE</button>
           }
         </div>
       </form>

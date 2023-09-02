@@ -62,5 +62,5 @@ main section .right-side {
     display: flex;
     justify-content: center;
     align-items:flex-start;
-    flex: 2;
+    flex: 3;
 }
